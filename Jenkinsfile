@@ -1,8 +1,4 @@
-
 pipeline {
-    agent {
-        label "docker"
-    }
     environment {
         DOCKERFILE = "Dockerfile.build"
     }
@@ -17,13 +13,13 @@ pipeline {
             parallel {
                 stage("openjdk-8.0.232") {
                     agent {
-                        dockerfile {
-                            filename DOCKERFILE
-                            additionalBuildArgs "--build-arg JAVA_VERSION=8.0.232-open -t maven:8.0.232-open"
+                        dockerfile { 
+                            filename DOCKERFILE 
+                            additionalBuildArgs "--build-arg JAVA_VERSION=8.0.232-open -t maven:8.0.232-open" 
                         }
                     }
                     steps {
-                        sh "${MVN_COMMAND} -P jdk8"
+                        sh "${MVN_COMMAND} -P jdk8" 
                     }
                     post {
                         always {
@@ -56,7 +52,7 @@ pipeline {
                 dockerfile {
                     filename DOCKERFILE
                     additionalBuildArgs "--build-arg JAVA_VERSION=8.0.232-open"
-                    args '-v $HOME/.m2/repository:/home/jenkins/.m2/repository:rw,z'
+                    args '-v $HOME/.m2/repository:/home/jenkins/.m2/repository:rw,z' 
                 }
             }
             steps {
